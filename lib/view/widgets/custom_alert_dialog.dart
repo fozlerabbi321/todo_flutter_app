@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todo_flutter_app/models/response/rp_todo_model.dart';
 import '../../constants/colors_data.dart';
 import '../../constants/style_data.dart';
+import '../../controllers/todo_controller.dart';
+import '../../utils/date_converter.dart';
 import 'input_form_widget.dart';
 
 class CustomAlertDialog {
-
   addTodoDialog({
     required BuildContext context,
-    required Function onPress,
   }) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        final  titleController = TextEditingController();
-        final  descriptionController = TextEditingController();
+        final titleController = TextEditingController();
+        final descriptionController = TextEditingController();
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
@@ -21,7 +23,9 @@ class CustomAlertDialog {
           titlePadding: EdgeInsets.zero,
           contentPadding: EdgeInsets.zero,
           content: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10,),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -39,12 +43,10 @@ class CustomAlertDialog {
                   ),
                   child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 10.0, top: 10, right: 10),
+                        const EdgeInsets.only(left: 10.0, top: 10, right: 10),
                     child: Center(
-                      child: Text(
-                        'Add New Todo',
-                        style: Theme.of(context).textTheme.subtitle1
-                      ),
+                      child: Text('Add New Todo',
+                          style: Theme.of(context).textTheme.subtitle1),
                     ),
                   ),
                 ),
@@ -80,10 +82,10 @@ class CustomAlertDialog {
                           child: Text(
                             "Cancel",
                             style:
-                            Theme.of(context).textTheme.subtitle2!.copyWith(
-                              color: kBlackColor,
-                              fontSize: 14,
-                            ),
+                                Theme.of(context).textTheme.subtitle2!.copyWith(
+                                      color: kBlackColor,
+                                      fontSize: 14,
+                                    ),
                           ),
                         ),
                       ),
@@ -91,7 +93,24 @@ class CustomAlertDialog {
                     kWidthBox10,
                     Expanded(
                       child: InkWell(
-                        onTap: onPress as void Function(),
+                        onTap: () {
+                          if(titleController.text.isEmpty){
+                            showCustomSnackBar('Please enter todo title');
+                          }else if(descriptionController.text.isEmpty){
+                            showCustomSnackBar('Please enter todo description');
+                          }else{
+                            Get.find<TodoController>().addToCart(
+                              RpTodoModel(
+                                title: titleController.text,
+                                description: titleController.text,
+                                isComplete: 0,
+                                dateTime: DateConverter.dateToDateAndTime(
+                                    DateTime.now()),
+                              ),
+                            );
+                            Get.back();
+                          }
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -104,10 +123,10 @@ class CustomAlertDialog {
                           child: Text(
                             "Save",
                             style:
-                            Theme.of(context).textTheme.subtitle2!.copyWith(
-                              color: kWhiteColor,
-                              fontSize: 14,
-                            ),
+                                Theme.of(context).textTheme.subtitle2!.copyWith(
+                                      color: kWhiteColor,
+                                      fontSize: 14,
+                                    ),
                           ),
                         ),
                       ),

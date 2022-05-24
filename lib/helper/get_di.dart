@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../controllers/todo_controller.dart';
 import '../services/repository/cart_repo.dart';
 import 'sqlite_db_helper.dart';
 
@@ -12,12 +13,9 @@ Future<void> initDependencyInjection() async {
   );
 
   // Repositories
-  Get.lazyPut(
-    () => TodoRepo(
-      databaseHelper: Get.find(),
-    ),
-    fenix: true,
-  );
+  Get.lazyPut(() => TodoRepo(databaseHelper: Get.find(),), fenix: true,);
+  //Controllers
+  Get.lazyPut(() => TodoController(todoRepo: Get.find(),), fenix: true,);
 
 
 }

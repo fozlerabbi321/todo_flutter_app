@@ -44,7 +44,6 @@ class HomeScreen extends StatelessWidget {
         onPressed: (){
           CustomAlertDialog().addTodoDialog(
             context: context,
-            onPress: () {},
           );
         },
         tooltip: 'Add',
