@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'constants/strings.dart';
 import 'constants/theme/light_theme.dart';
-import 'view/screens/splash_screen.dart';
+import 'view/screens/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../constants/colors_data.dart';
-import '../../constants/images.dart';
-import '../../constants/size_config.dart';
-import 'home_screen.dart';
+import '../../../constants/images.dart';
+import '../../../constants/size_config.dart';
+import '../home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -52,11 +50,6 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: kPrimaryColor,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: kPrimaryColor,
-      ),
       body: Center(
         child: FadeTransition(
           opacity: _animation as Animation<double>,
