@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:todo_flutter_app/constants/colors_data.dart';
+import 'package:todo_flutter_app/models/response/rp_todo_model.dart';
 import '../../../../constants/size_config.dart';
 import '../../../../constants/style_data.dart';
 
 class TodoCard extends StatelessWidget {
+  final RpTodoModel todoModel;
+  final bool isLast;
+
   const TodoCard({
     Key? key,
+    required this.todoModel,
+    this.isLast = false,
   }) : super(key: key);
 
   @override
@@ -31,17 +37,18 @@ class TodoCard extends StatelessWidget {
                 horizontal: 10,
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Expanded(
                         child: Text(
-                          'Toto title',
+                          todoModel.title ?? '',
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                       ),
                       InkWell(
-                        onTap: (){},
+                        onTap: () {},
                         child: Icon(
                           Icons.more_vert,
                           color: Theme.of(context).disabledColor,
@@ -51,7 +58,7 @@ class TodoCard extends StatelessWidget {
                   ),
                   kHeightBox10,
                   Text(
-                    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be',
+                    todoModel.description ?? '',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   kHeightBox10,
@@ -59,15 +66,19 @@ class TodoCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          '03 Jun 2022 02:30 PM',
-                          style: Theme.of(context).textTheme.bodyText2,
+                          todoModel.dateTime ?? '',
+                          style:
+                              Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    fontSize: 8,
+                                  ),
                         ),
                       ),
                       Text(
                         'Compete',
-                        style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                          color: kPaymentStatus
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2
+                            ?.copyWith(color: kPaymentStatus, fontSize: 8,),
                       ),
                     ],
                   ),
@@ -76,6 +87,7 @@ class TodoCard extends StatelessWidget {
             ),
           ),
         ),
+        if (isLast) kHeightBox10,
       ],
     );
   }

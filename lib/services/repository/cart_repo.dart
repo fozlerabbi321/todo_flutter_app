@@ -16,7 +16,7 @@ class TodoRepo {
   Future<List<RpTodoModel>> getAllTodoList() async {
     List<RpTodoModel> todos = [];
     Database? db = await databaseHelper.database;
-    var results = await db!.query(tableTodoName);
+    var results = await db!.query(tableTodoName,orderBy: '${TodoColumn.columnDateTime} DESC',);
     for (var element in results) {
       var data = RpTodoModel.fromJson(element);
       todos.add(data);

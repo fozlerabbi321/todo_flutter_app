@@ -60,6 +60,7 @@ class CustomAlertDialog {
                   fieldController: descriptionController,
                   hintText: 'Enter todo description',
                   title: 'Todo Description',
+                  maxLines: 3,
                 ),
                 kHeightBox20,
                 Row(
@@ -102,7 +103,7 @@ class CustomAlertDialog {
                             Get.find<TodoController>().addToCart(
                               RpTodoModel(
                                 title: titleController.text,
-                                description: titleController.text,
+                                description: descriptionController.text,
                                 isComplete: 0,
                                 dateTime: DateConverter.dateToDateAndTime(
                                     DateTime.now()),

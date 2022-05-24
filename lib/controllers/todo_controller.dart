@@ -13,10 +13,12 @@ class TodoController extends GetxController {
   //Init
   final List<RpTodoModel> _todoList = [];
   bool _isLoading = false;
+  bool _isListLoading = true;
 
   //Encapsulation
   List<RpTodoModel> get todoList => _todoList;
   bool get isLoading => _isLoading;
+  bool get isListLoading => _isListLoading;
 
 
   //Todo_data add
@@ -37,9 +39,10 @@ class TodoController extends GetxController {
   ///Get all todo_list
   void getAllTodoList() async {
     try {
-      _isLoading = true;
+      _isListLoading = true;
       var product = await todoRepo.getAllTodoList();
       _todoList.assignAll(product);
+      _isListLoading = false;
       update();
     } finally {
       _isLoading = false;
