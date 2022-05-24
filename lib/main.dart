@@ -3,9 +3,13 @@ import 'package:get/get.dart';
 
 import 'constants/strings.dart';
 import 'constants/theme/light_theme.dart';
+import 'helper/get_di.dart';
 import 'view/screens/splash/splash_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDependencyInjection();
+
   runApp(const MyApp());
 }
 
