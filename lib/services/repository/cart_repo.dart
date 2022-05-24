@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:sqflite/sqflite.dart';
@@ -11,7 +12,6 @@ class TodoRepo {
 
   TodoRepo({required this.databaseHelper,});
 
-
   //Get All all row
   Future<List<RpTodoModel>> getAllTodoList() async {
     List<RpTodoModel> todos = [];
@@ -20,6 +20,7 @@ class TodoRepo {
     for (var element in results) {
       var data = RpTodoModel.fromJson(element);
       todos.add(data);
+      log('Data : ${json.encode(data)}');
     }
     return todos;
   }
@@ -29,9 +30,9 @@ class TodoRepo {
     Database? db = await databaseHelper.database;
     var result = await db!.insert(
       tableTodoName,
-      model.toJson(),
+      model.toMap(),
     );
-    log('result : $result');
+    return result;
   }
 
   //Delete row
@@ -42,10 +43,10 @@ class TodoRepo {
   }
 
   //Status update row
-  Future updateTodoStatus(int id, int qty) async {
+  Future updateTodoStatus(int id, int status) async {
     Database? db = await databaseHelper.database;
     Map<String, dynamic> row = {
-      TodoColumn.columnIsComplete: qty,
+      TodoColumn.columnIsComplete: status,
     };
     return await db?.update(tableTodoName, row,
         where: '${TodoColumn.columnId} = ?', whereArgs: [id]);

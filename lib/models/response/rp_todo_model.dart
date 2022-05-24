@@ -41,4 +41,13 @@ class RpTodoModel {
     return map;
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'is_complete': _isComplete,
+      'title': _title,
+      'description': _description,
+      'date_time': _dateTime,
+    };
+  }
+
 }

@@ -5,6 +5,7 @@ import 'package:todo_flutter_app/view/widgets/custom_loader.dart';
 
 import '../../../constants/colors_data.dart';
 import '../../../constants/size_config.dart';
+import '../../../constants/strings.dart';
 import '../../widgets/custom_alert_dialog.dart';
 import '../../widgets/input_form_widget.dart';
 import 'widgets/toto_card.dart';
@@ -48,14 +49,26 @@ class HomeScreen extends StatelessWidget {
                       ),
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
-                        return InkWell(
+                        return TodoCard(
                           onTap: () {},
-                          child: TodoCard(
-                            todoModel: todoController.todoList[index],
-                            isLast: index == todoController.todoList.length - 1
-                                ? true
-                                : false,
-                          ),
+                          onStatusTap: () {
+                            CustomAlertDialog().statusChangeDialog(
+                                context: context,
+                                title: 'Change Status!',
+                                body: 'Are you sure want to change status?',
+                                onPress: () {
+                                  todoController.updateTodoStatus(
+                                    todoController.todoList[index].id ?? 0,
+                                    1 ,
+                                  );
+                                  Get.back();
+                                },
+                            );
+                          },
+                          todoModel: todoController.todoList[index],
+                          isLast: index == todoController.todoList.length - 1
+                              ? true
+                              : false,
                         );
                       },
                     );

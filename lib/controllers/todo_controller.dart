@@ -8,7 +8,9 @@ import '../constants/style_data.dart';
 class TodoController extends GetxController {
   final TodoRepo todoRepo;
 
-  TodoController({required this.todoRepo,});
+  TodoController({
+    required this.todoRepo,
+  });
 
   //Init
   final List<RpTodoModel> _todoList = [];
@@ -17,12 +19,15 @@ class TodoController extends GetxController {
 
   //Encapsulation
   List<RpTodoModel> get todoList => _todoList;
+
   bool get isLoading => _isLoading;
+
   bool get isListLoading => _isListLoading;
 
-
   //Todo_data add
-  void addToCart(RpTodoModel rpTodoModel, ) async {
+  void addToCart(
+    RpTodoModel rpTodoModel,
+  ) async {
     //value not exists
     log('todo value not exists ${rpTodoModel.id ?? 0}');
 
@@ -36,18 +41,42 @@ class TodoController extends GetxController {
     showCustomSnackBar('Added to todo Successfully!', isError: false);
   }
 
-  ///Get all todo_list
-  void getAllTodoList() async {
+  //Get all todo_list
+  void getAllTodoList({
+    bool reload = false,
+  }) async {
     try {
-      _isListLoading = true;
+      if(reload){
+        _isListLoading = true;
+        update();
+      }
+
       var product = await todoRepo.getAllTodoList();
       _todoList.assignAll(product);
       _isListLoading = false;
       update();
     } finally {
+      _isListLoading = false;
+      update();
+    }
+  }
+
+  //
+  void updateTodoStatus(
+    int id,
+    int status,
+  ) async {
+    try {
+      _isLoading = true;
+      await todoRepo.updateTodoStatus(
+        id,
+        status,
+      );
+      getAllTodoList();
+      showCustomSnackBar('Change status Successfully!', isError: false);
+    } finally {
       _isLoading = false;
       update();
     }
   }
-  
 }
