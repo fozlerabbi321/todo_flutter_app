@@ -1,9 +1,23 @@
 import 'package:get/get.dart';
 
+import '../services/repository/cart_repo.dart';
 import 'sqlite_db_helper.dart';
 
 Future<void> initDependencyInjection() async {
   // Core
   final DatabaseHelper databaseHelper = DatabaseHelper.instance;
-  Get.lazyPut(() => databaseHelper, fenix: true,);
+  Get.lazyPut(
+    () => databaseHelper,
+    fenix: true,
+  );
+
+  // Repositories
+  Get.lazyPut(
+    () => TodoRepo(
+      databaseHelper: Get.find(),
+    ),
+    fenix: true,
+  );
+
+
 }
