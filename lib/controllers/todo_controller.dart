@@ -90,6 +90,21 @@ class TodoController extends GetxController {
     }
   }
 
+  //todo_remove from item
+  Future<void> removeFromTodo(int id) async {
+    try {
+      _isLoading = true;
+      await todoRepo.deleteTodo(id);
+      showCustomSnackBar(
+        'Delete from cart Successfully!',
+      );
+      getAllTodoList();
+    } finally {
+      _isLoading = false;
+      update();
+    }
+  }
+
   // update todo_status
   void updateTodoStatus(
     int id,

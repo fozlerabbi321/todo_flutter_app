@@ -42,9 +42,13 @@ class TodoDetailsScreen extends StatelessWidget {
               CustomAlertDialog().statusChangeDialog(
                 context: context,
                 title: 'Delete',
-                body: 'Are you sure want to from todo?',
+                body: 'Are you sure want to delete from todo?',
                 confirmBtnColor: kErrorColor,
-                onPress: () {},
+                onPress: () {
+                  Get.find<TodoController>().removeFromTodo(todoModel.id?? 0);
+                  Get.back();
+                  Get.back();
+                },
               );
             },
             icon: SizedBox(
