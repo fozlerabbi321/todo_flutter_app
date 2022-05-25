@@ -16,8 +16,7 @@ class SizeConfig {
 
   static bool isMobile() => SizeConfig.screenWidth < 850;
 
-  static bool isTablet() =>
-      SizeConfig.screenWidth < 1100 && SizeConfig.screenWidth >= 850;
+  static bool isTablet() => SizeConfig.screenWidth < 1100 && SizeConfig.screenWidth >= 850;
 
   static bool isDesktop() => SizeConfig.screenWidth >= 1100;
 }

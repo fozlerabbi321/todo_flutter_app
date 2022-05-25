@@ -100,7 +100,7 @@ class CustomAlertDialog {
                           }else if(descriptionController.text.isEmpty){
                             showCustomSnackBar('Please enter todo description');
                           }else{
-                            Get.find<TodoController>().addToCart(
+                            Get.find<TodoController>().addToTodo(
                               RpTodoModel(
                                 id: null,
                                 title: titleController.text,

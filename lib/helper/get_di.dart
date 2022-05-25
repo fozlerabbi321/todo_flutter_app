@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../controllers/todo_controller.dart';
-import '../services/repository/cart_repo.dart';
+import '../services/repository/todo_repo.dart';
 import 'sqlite_db_helper.dart';
 
 Future<void> initDependencyInjection() async {

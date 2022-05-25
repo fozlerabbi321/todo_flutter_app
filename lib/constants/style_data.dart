@@ -47,68 +47,6 @@ BoxDecoration containerBoxDecoration(
   );
 }
 
-final kHomeTitle = TextStyle(
-  color: kBlackColor2,
-  fontWeight: FontWeight.w600,
-  fontSize: getProportionateScreenHeight(18),
-);
-
-final kHeadLine = TextStyle(
-  fontSize: getProportionateScreenHeight(34.0),
-  fontWeight: FontWeight.w700,
-  height: 1.25,
-);
-final kHeadLineTest = TextStyle(
-  fontSize: getProportionateScreenHeight(34.0),
-  fontWeight: FontWeight.w700,
-  height: 1.25,
-);
-final kHeadLine2 = TextStyle(
-  fontSize: getProportionateScreenHeight(24.0),
-  fontWeight: FontWeight.w600,
-  height: 1.25,
-);
-final kHeadLine3 = TextStyle(
-  fontSize: getProportionateScreenHeight(22.0),
-  fontWeight: FontWeight.w500,
-  height: 1.25,
-);
-final kAppBarText = TextStyle(
-  fontSize: getProportionateScreenHeight(18.0),
-  fontWeight: FontWeight.w500,
-  height: 1.25,
-);
-final kRegularText = TextStyle(
-  fontSize: getProportionateScreenHeight(16.0),
-  fontWeight: FontWeight.w300,
-  height: 1.25,
-);
-final kRegularText2 = TextStyle(
-  fontSize: getProportionateScreenHeight(15.0),
-  fontWeight: FontWeight.w400,
-  height: 1.25,
-  color: const Color(0xFF303030),
-  fontStyle: FontStyle.normal,
-);
-final kDescriptionText = TextStyle(
-  fontSize: getProportionateScreenHeight(12.0),
-  fontWeight: FontWeight.w400,
-  height: 1.0,
-  color: const Color(0xFF707070),
-  fontStyle: FontStyle.normal,
-);
-final kSmallText = TextStyle(
-  fontSize: getProportionateScreenHeight(11.0),
-  fontWeight: FontWeight.w400,
-  height: 1.25,
-);
-
-final kBoldStyle = TextStyle(
-  fontSize: getProportionateScreenHeight(16.0),
-  fontWeight: FontWeight.bold,
-  height: 1.25,
-);
-
 void showCustomSnackBar(String message, {bool isError = true}) {
   Get.showSnackbar(
     GetSnackBar(
@@ -149,40 +87,6 @@ const TextStyle bodyUnseenText1 = TextStyle(
     fontSize: 14,
     letterSpacing: 1.2,
     fontWeight: FontWeight.bold);
-
-const TextStyle heading2 = TextStyle(
-  color: Color(0xff686795),
-  fontSize: 18,
-  fontWeight: FontWeight.w600,
-  letterSpacing: 1.5,
-);
-
-const TextStyle chatSenderName = TextStyle(
-  color: Colors.white,
-  fontSize: 24,
-  fontWeight: FontWeight.bold,
-  letterSpacing: 1.5,
-);
-
-const TextStyle bodyText1 = TextStyle(
-  color: Color(0xffAEABC9),
-  fontSize: 14,
-  letterSpacing: 1.2,
-  fontWeight: FontWeight.w500,
-);
-
-const TextStyle bodyTextMessage = TextStyle(
-  fontSize: 13,
-  letterSpacing: 1.5,
-  fontWeight: FontWeight.w600,
-);
-
-const TextStyle bodyTextTime = TextStyle(
-  color: Color(0xffAEABC9),
-  fontSize: 11,
-  fontWeight: FontWeight.bold,
-  letterSpacing: 1,
-);
 
 final otpInputDecoration = InputDecoration(
   fillColor: kWhiteColor,

@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todo_flutter_app/models/response/rp_todo_model.dart';
-import 'package:todo_flutter_app/services/repository/cart_repo.dart';
 
 import '../constants/style_data.dart';
+import '../models/response/rp_todo_model.dart';
+import '../services/repository/todo_repo.dart';
 
 class TodoController extends GetxController {
   final TodoRepo todoRepo;
@@ -16,8 +16,10 @@ class TodoController extends GetxController {
   //Init
   final List<RpTodoModel> _todoList = [];
   final List<RpTodoModel> _todoSearchList = [];
+  RpTodoModel? _selectedTodoModel;
   bool _isLoading = false;
   bool _isListLoading = true;
+  int _todoSelectedPosition = 0;
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
@@ -26,16 +28,20 @@ class TodoController extends GetxController {
 
   List<RpTodoModel> get todoSearchList => _todoSearchList;
 
+  RpTodoModel? get selectedTodoModel => _selectedTodoModel;
+
   bool get isLoading => _isLoading;
 
   bool get isListLoading => _isListLoading;
+
+  int get todoSelectedPosition => _todoSelectedPosition;
 
   TextEditingController get titleController => _titleController;
 
   TextEditingController get descriptionController => _descriptionController;
 
   //Todo_data add
-  void addToCart(
+  void addToTodo(
     RpTodoModel rpTodoModel,
   ) async {
     //value not exists
@@ -76,8 +82,9 @@ class TodoController extends GetxController {
   void updateTodo(
     int id,
     String title,
-    String description,
-  ) async {
+    String description, {
+    bool isMobile = true,
+  }) async {
     try {
       _isLoading = true;
       await todoRepo.updateTodo(
@@ -86,7 +93,9 @@ class TodoController extends GetxController {
         description,
       );
       getAllTodoList();
-      Get.back();
+      if(isMobile){
+        Get.back();
+      }
       showCustomSnackBar('Update from todo Successfully!', isError: false);
     } finally {
       _isLoading = false;
@@ -95,14 +104,18 @@ class TodoController extends GetxController {
   }
 
   //todo_remove from item
-  Future<void> removeFromTodo(int id) async {
+  Future<void> removeFromTodo(
+    int id, {
+    bool isSearch = false,
+    String search = '',
+  }) async {
     try {
       _isLoading = true;
       await todoRepo.deleteTodo(id);
       showCustomSnackBar(
-        'Delete from cart Successfully!',
+        'Delete from todo Successfully!',
       );
-      getAllTodoList();
+      getAllTodoList(isSearch: isSearch, search: search);
     } finally {
       _isLoading = false;
       update();
@@ -114,7 +127,7 @@ class TodoController extends GetxController {
     int id,
     int status, {
     bool isSearch = false,
-        String search = '',
+    String search = '',
   }) async {
     try {
       _isLoading = true;
@@ -136,6 +149,19 @@ class TodoController extends GetxController {
       _isLoading = true;
       _titleController.text = todoModel.title ?? '';
       _descriptionController.text = todoModel.description ?? '';
+      _selectedTodoModel = todoModel;
+      update();
+    } finally {
+      _isLoading = false;
+      update();
+    }
+  }
+
+  //todo_remove from item
+  Future<void> updateSelectedPosition(int position) async {
+    try {
+      _isLoading = true;
+      _todoSelectedPosition = position;
       update();
     } finally {
       _isLoading = false;
