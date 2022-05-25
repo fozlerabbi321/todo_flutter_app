@@ -5,5 +5,5 @@ class Images {
   static const String logo = '${kImageDir}logo.png';
 
   ///SVG Image
-  static const String test = '${kIConDir}test.svg';
+  static const String delete = '${kIConDir}delete.svg';
 }
