@@ -15,6 +15,7 @@ class TodoController extends GetxController {
 
   //Init
   final List<RpTodoModel> _todoList = [];
+  final List<RpTodoModel> _todoSearchList = [];
   bool _isLoading = false;
   bool _isListLoading = true;
   final _titleController = TextEditingController();
@@ -22,6 +23,8 @@ class TodoController extends GetxController {
 
   //Encapsulation
   List<RpTodoModel> get todoList => _todoList;
+
+  List<RpTodoModel> get todoSearchList => _todoSearchList;
 
   bool get isLoading => _isLoading;
 
@@ -50,16 +53,17 @@ class TodoController extends GetxController {
 
   //Get all todo_list
   void getAllTodoList({
-    bool reload = false,
+    String search = '',
+    bool isSearch = false,
   }) async {
     try {
-      if (reload) {
-        _isListLoading = true;
-        update();
+      _isListLoading = true;
+      var product = await todoRepo.getAllTodoList(search: search);
+      if (isSearch) {
+        _todoSearchList.assignAll(product);
+      } else {
+        _todoList.assignAll(product);
       }
-
-      var product = await todoRepo.getAllTodoList();
-      _todoList.assignAll(product);
       _isListLoading = false;
       update();
     } finally {
@@ -108,15 +112,17 @@ class TodoController extends GetxController {
   // update todo_status
   void updateTodoStatus(
     int id,
-    int status,
-  ) async {
+    int status, {
+    bool isSearch = false,
+        String search = '',
+  }) async {
     try {
       _isLoading = true;
       await todoRepo.updateTodoStatus(
         id,
         status,
       );
-      getAllTodoList();
+      getAllTodoList(isSearch: isSearch, search: search);
       Get.back();
       showCustomSnackBar('Change status Successfully!', isError: false);
     } finally {

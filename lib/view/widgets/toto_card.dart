@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_flutter_app/constants/colors_data.dart';
 import 'package:todo_flutter_app/models/response/rp_todo_model.dart';
-import '../../../../constants/size_config.dart';
-import '../../../../constants/strings.dart';
-import '../../../../constants/style_data.dart';
+import '../../constants/size_config.dart';
+import '../../constants/strings.dart';
+import '../../constants/style_data.dart';
 
 class TodoCard extends StatelessWidget {
   final RpTodoModel todoModel;

@@ -25,6 +25,7 @@ class InputFormWidget extends StatelessWidget {
   final FocusNode? focusNode;
   final TextInputType? keyType;
   final EdgeInsets? padding;
+  final TextInputAction? textInputAction;
   final CrossAxisAlignment? crossAxisAlignment;
   final double? height;
   final double radius;
@@ -37,6 +38,7 @@ class InputFormWidget extends StatelessWidget {
     this.isEditable,
     this.maxLines,
     this.shadowColor,
+    this.textInputAction,
     this.elevation,
     this.padding,
     this.crossAxisAlignment,
@@ -96,6 +98,7 @@ class InputFormWidget extends StatelessWidget {
                 onChanged: onSaved as void Function(String)?,
                 onFieldSubmitted: onConfirm as void Function(String?)?,
                 focusNode: focusNode,
+                textInputAction: textInputAction,
                 textAlign:
                 centerText == true ? TextAlign.center : TextAlign.start,
                 autofocus: autoFocus,

@@ -13,10 +13,12 @@ class TodoRepo {
   TodoRepo({required this.databaseHelper,});
 
   //Get All all row
-  Future<List<RpTodoModel>> getAllTodoList() async {
+  Future<List<RpTodoModel>> getAllTodoList({
+    String search = '',
+  }) async {
     List<RpTodoModel> todos = [];
     Database? db = await databaseHelper.database;
-    var results = await db!.query(tableTodoName,orderBy: '${TodoColumn.columnDateTime} DESC',);
+    var results = await db!.rawQuery("SELECT * FROM $tableTodoName WHERE title LIKE '%$search%' ORDER BY ${TodoColumn.columnDateTime} DESC");
     for (var element in results) {
       var data = RpTodoModel.fromJson(element);
       todos.add(data);
