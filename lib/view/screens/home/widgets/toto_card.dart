@@ -80,15 +80,15 @@ class TodoCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          (todoModel.isComplete ?? 0) == competeStatus
-                              ? competeStatusTitle
-                              : inCompeteStatusTitle,
+                          (todoModel.isComplete ?? 0) == completeStatus
+                              ? completeStatusTitle
+                              : incompleteStatusTitle,
                           style: Theme.of(context)
                               .textTheme
                               .bodyText2
                               ?.copyWith(
                                 color:
-                                    (todoModel.isComplete ?? 0) == competeStatus
+                                    (todoModel.isComplete ?? 0) == completeStatus
                                         ? kPrimaryColor
                                         : kErrorColor,
                                 fontSize: 8,

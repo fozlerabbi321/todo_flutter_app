@@ -150,7 +150,7 @@ class CustomAlertDialog {
     String? body,
     String confirmTitle = 'Confirm',
     String cancelTitle = 'Cancel',
-    Color? color,
+    Color? confirmBtnColor,
     BuildContext? context,
     Function? onPress,
   }) {
@@ -234,9 +234,9 @@ class CustomAlertDialog {
                       child: Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: const BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.all(
+                        decoration: BoxDecoration(
+                          color: confirmBtnColor ?? kPrimaryColor,
+                          borderRadius: const BorderRadius.all(
                             Radius.circular(5),
                           ),
                         ),

@@ -8,6 +8,7 @@ import '../../../constants/size_config.dart';
 import '../../../constants/strings.dart';
 import '../../widgets/custom_alert_dialog.dart';
 import '../../widgets/input_form_widget.dart';
+import '../details/todo_details_screen.dart';
 import 'widgets/toto_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,19 +51,26 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         return TodoCard(
-                          onTap: () {},
+                          onTap: () => Get.to(
+                            () => TodoDetailsScreen(
+                              todoModel: todoController.todoList[index],
+                            ),
+                          ),
                           onStatusTap: () {
                             CustomAlertDialog().statusChangeDialog(
-                                context: context,
-                                title: 'Change Status!',
-                                body: 'Are you sure want to change status?',
-                                onPress: () {
-                                  todoController.updateTodoStatus(
-                                    todoController.todoList[index].id ?? 0,
-                                    1 ,
-                                  );
-                                  Get.back();
-                                },
+                              context: context,
+                              title: 'Change Status!',
+                              body: 'Are you sure want to change status?',
+                              onPress: () {
+                                todoController.updateTodoStatus(
+                                  todoController.todoList[index].id ?? 0,
+                                  (todoController.todoList[index].isComplete ??
+                                              0) ==
+                                          completeStatus
+                                      ? incompleteStatus
+                                      : completeStatus,
+                                );
+                              },
                             );
                           },
                           todoModel: todoController.todoList[index],

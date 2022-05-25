@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_flutter_app/models/response/rp_todo_model.dart';
 import 'package:todo_flutter_app/services/repository/cart_repo.dart';
@@ -16,6 +17,8 @@ class TodoController extends GetxController {
   final List<RpTodoModel> _todoList = [];
   bool _isLoading = false;
   bool _isListLoading = true;
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   //Encapsulation
   List<RpTodoModel> get todoList => _todoList;
@@ -23,6 +26,10 @@ class TodoController extends GetxController {
   bool get isLoading => _isLoading;
 
   bool get isListLoading => _isListLoading;
+
+  TextEditingController get titleController => _titleController;
+
+  TextEditingController get descriptionController => _descriptionController;
 
   //Todo_data add
   void addToCart(
@@ -46,7 +53,7 @@ class TodoController extends GetxController {
     bool reload = false,
   }) async {
     try {
-      if(reload){
+      if (reload) {
         _isListLoading = true;
         update();
       }
@@ -61,7 +68,29 @@ class TodoController extends GetxController {
     }
   }
 
-  //
+// update todo_data
+  void updateTodo(
+    int id,
+    String title,
+    String description,
+  ) async {
+    try {
+      _isLoading = true;
+      await todoRepo.updateTodo(
+        id,
+        title,
+        description,
+      );
+      getAllTodoList();
+      Get.back();
+      showCustomSnackBar('Update from todo Successfully!', isError: false);
+    } finally {
+      _isLoading = false;
+      update();
+    }
+  }
+
+  // update todo_status
   void updateTodoStatus(
     int id,
     int status,
@@ -73,7 +102,20 @@ class TodoController extends GetxController {
         status,
       );
       getAllTodoList();
+      Get.back();
       showCustomSnackBar('Change status Successfully!', isError: false);
+    } finally {
+      _isLoading = false;
+      update();
+    }
+  }
+
+  void setTextFiledTodoData(RpTodoModel todoModel) async {
+    try {
+      _isLoading = true;
+      _titleController.text = todoModel.title ?? '';
+      _descriptionController.text = todoModel.description ?? '';
+      update();
     } finally {
       _isLoading = false;
       update();
